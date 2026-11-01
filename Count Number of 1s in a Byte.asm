@@ -1,0 +1,32 @@
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+NUM DB 5AH
+COUNT DB 0
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, NUM
+    MOV BL, 0
+    MOV CX, 8
+
+L1:
+    SHR AL, 1
+    JNC NEXT
+
+    INC BL
+
+NEXT:
+    LOOP L1
+
+    MOV COUNT, BL
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN

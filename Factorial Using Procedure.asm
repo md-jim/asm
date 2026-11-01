@@ -1,0 +1,40 @@
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+N DB 4
+RESULT DW ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV CL, N
+    CALL FACTORIAL
+
+    MOV RESULT, AX
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+
+FACTORIAL PROC
+    PUSH BX
+    PUSH CX
+
+    MOV AX, 1
+    MOV BX, 1
+
+L1:
+    MUL BX
+    INC BX
+    LOOP L1
+
+    POP CX
+    POP BX
+    RET
+FACTORIAL ENDP
+
+END MAIN

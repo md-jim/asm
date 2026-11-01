@@ -1,0 +1,34 @@
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+ARRAY DB 02H, 05H, 08H, 03H, 06H, 01H
+SUM DW 0
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    LEA SI, ARRAY
+    MOV CX, 6
+    MOV AX, 0
+
+L1:
+    MOV BL, [SI]
+    TEST BL, 01H
+    JNZ NEXT
+
+    ADD AL, BL
+
+NEXT:
+    INC SI
+    LOOP L1
+
+    MOV SUM, AX
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
